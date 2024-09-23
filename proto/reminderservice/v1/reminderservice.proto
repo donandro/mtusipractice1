@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package reminderservice.v1;
+option go_package = "pillsreminder/internal/client/reminderservice/grpc";
+
+service ReminderService {
+  rpc AddPlan (AddPlanRequest) returns (AddPlanResponse);
+  rpc GetUserPlans (GetUserPlansRequest) returns (GetUserPlansResponse);
+  rpc DeleteUserPlan (DeleteUserPlanRequest) returns (DeleteUserPlanResponse);
+  rpc CancelPlan (CancelPlanRequest) returns (CancelPlanResponse);
+  rpc Intake (IntakeRequest) returns (IntakeResponse);
+}
+
+message AddPlanRequest {
+  int32 user_id = 1;
+  string name = 2;
+  int32 pill_id = 3;
+  string reminder_time = 4;
+  string frequency = 5;
+  string days_of_week = 6;
+  string start_date = 7;
+  string end_date = 8;
+}
+
+message AddPlanResponse {}
+
+message  GetUserPlansRequest {
+  int32 user_id = 1;
+}
+
+message  GetUserPlansResponse {
+  repeated UserPlan user_plans = 1;
+}
+
+message UserPlan {
+  int32 plan_id = 1;
+  string name = 2;
+  int32 pill_id = 3;
+  string reminder_time = 4;
+  string frequency = 5;
+  string days_of_week = 6;
+  string start_date = 7;
+  string end_date = 8;
+}
+
+message DeleteUserPlanRequest {
+  int32 plan_id = 1;
+}
+
+message DeleteUserPlanResponse {}
+
+message IntakeRequest {
+  int32 plan_id = 1;
+  bool pill_taken = 2;
+}
+
+message IntakeResponse {}
+
+message CancelPlanRequest {
+  int32 plan_id = 1;
+}
+
+message CancelPlanResponse {}

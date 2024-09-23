@@ -1,0 +1,144 @@
+definitions:
+  models.AuthResponse:
+    properties:
+      accessToken:
+        type: string
+      expiry:
+        type: integer
+    type: object
+  models.GetPillsResponse:
+    properties:
+      pills:
+        items:
+          $ref: '#/definitions/models.Pill'
+        type: array
+    type: object
+  models.LoginRequest:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  models.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Pill:
+    properties:
+      dosage:
+        type: string
+      id:
+        type: integer
+      instruction:
+        type: string
+      name:
+        type: string
+    type: object
+  models.SignUpRequest:
+    properties:
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authorization by user and password
+      parameters:
+      - description: Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+      summary: Login
+  /pills:
+    get:
+      consumes:
+      - application/json
+      description: Get pills with filter by name.
+      parameters:
+      - description: Search string name
+        in: query
+        name: searchstring
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetPillsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+      summary: GetPills
+  /pills/:pill_id:
+    get:
+      consumes:
+      - application/json
+      description: Get pills with filter by name.
+      parameters:
+      - description: Pill Id
+        in: path
+        name: pill_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pill'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+      summary: GetPillByID
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Creates account. Generate access token.
+      parameters:
+      - description: Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+      summary: SignUp
+swagger: "2.0"

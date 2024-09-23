@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package pillsservice.v1;
+option go_package = "pillsreminder/internal/client/pillsservice/grpc";
+
+service PillsService {
+  rpc SearchPills (SearchPillsRequest) returns (SearchPillsResponse);
+  rpc GetPillById (GetPillByIdRequest) returns (GetPillByIdResponse);
+}
+
+message SearchPillsRequest {
+  string search_string = 1;
+}
+
+message SearchPillsResponse {
+  repeated Pill pills = 1;
+}
+
+message GetPillByIdRequest {
+  int32 id = 1;
+}
+
+message GetPillByIdResponse {
+  Pill pill = 1;
+}
+
+message Pill {
+  int32 id = 1;
+  string name = 2;
+  string dosage = 3;
+  string instruction = 4;
+}

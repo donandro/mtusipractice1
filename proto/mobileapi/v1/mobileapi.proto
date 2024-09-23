@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package mobileapi.v1;
+option go_package = "pillsreminder/internal/client/mobileapi/grpc";
+
+service MobileApiService {
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserByIdResponse);
+}
+
+message GetUserByIdRequest {
+  int32 id = 1;
+}
+
+message GetUserByIdResponse {
+  User user = 1;
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}

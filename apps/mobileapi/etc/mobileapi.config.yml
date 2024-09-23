@@ -1,0 +1,34 @@
+server:
+  port: "5003"
+  secure:
+    jwt_secret: "ecnuht57y6947y698698y68y6c8mvn98yn5947y"
+    access_token_lifetime: "720h"
+
+grpc:
+  server:
+    port: "5002"
+
+  mode: "release"
+  logging:
+    level: 0
+    format: "json"
+
+db:
+  postgres:
+    dbname: "postgres"
+    username: "postgres"
+    password: "developer2023!$4"
+    host: "localhost"
+    port: "5432"
+    max_lifetime: 7200
+    max_open_conns: 150
+    max_idle_conns: 50
+
+externalservices:
+  reminderservice:
+    address: "localhost:5003"
+    timeout: 3s
+
+  pillsservice:
+    address: "localhost:5002"
+    timeout: 3s

@@ -1,0 +1,11 @@
+version: v1
+plugins:
+- name: go
+  opt: paths=import,module=pillsreminder/internal/client
+  out: internal/client
+- name: go-grpc
+  opt: paths=import,module=pillsreminder/internal/client
+  out: internal/client
+- name: validate
+  opt: lang=go,paths=import,module=pillsreminder/internal/client
+  out: internal/client
